@@ -1,38 +1,41 @@
-var pointsArray = [];
-var playerTotal = 0
-
 function Player (name, score, total) {
   this.name = name
   this.score = []
   this.total = total
 }
 
+function Score (dice, total, running) {
+  this.dice = dice
+  this.running = []
+  this.total = running
+}
+
 Player.prototype.playerInfo = function () {
   return this.name + this.score + this.total;
 };
 
-
-
-function rollDice() {
-  return Math.floor((Math.random() * 6) + 1);
+Score.prototype.rollDice = function () {
+    this.dice = Math.floor((Math.random() * 6) + 1);
+    return this.dice
 }
 
-function pointsTotal() {
-  var points = rollDice();
+Score.prototype.pointsTotal = function () {
+  var points = this.dice;
   if (points !== 1) {
-    pointsArray.push(points)
+    this.running.push(points)
   } else {
-    pointsArray = []
+    this.running = []
   }
- return points
+ return this.running
 }
 
-function runningTotal() {
+Score.prototype.runningTotal = function () {
   var x = 0
-  pointsArray.forEach(function(add) {
+  this.running.forEach(function(add) {
     x = x + add
   });
   return x
+
 }
 
 function hold(result) {
@@ -45,13 +48,13 @@ $(document).ready(function() {
 
   var player1 = new Player('scott',[],0);
   var player2 = new Player(2,0,0);
+  var diceScore= new Score (0,0,0)
     $('#diceButton').click(function(event) {
         event.preventDefault();
-        var rollResult = pointsTotal();
-        var runningResult = runningTotal();
-        $('#diceResult').text(rollResult);
-        $('#score').text(pointsArray);
-        $('#tally').text(runningResult);
+        console.log(diceScore.runningTotal());
+        $('#diceResult').text(diceScore.rollDice());
+        $('#score').text(diceScore.pointsTotal());
+        $('#tally').text(diceScore.runningTotal());
 
   });
 
