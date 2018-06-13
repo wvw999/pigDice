@@ -1,14 +1,16 @@
 var pointsArray = [];
 var playerTotal = 0
-// function Player (name, score, total) {
-//   this.name = name
-//   this.score = 0
-//   this.total = 0
-// }
-//
-// Player.prototype.playerInfo = function () {
-//   return this.name + this.score + this.total;
-// };
+
+function Player (name, score, total) {
+  this.name = name
+  this.score = []
+  this.total = total
+}
+
+Player.prototype.playerInfo = function () {
+  return this.name + this.score + this.total;
+};
+
 
 
 function rollDice() {
@@ -40,9 +42,9 @@ function hold(result) {
 }
 
 $(document).ready(function() {
-  // var player1 = new Player(1,0,0);
-  // var player2 = new Player(2,0,0);
 
+  var player1 = new Player('scott',[],0);
+  var player2 = new Player(2,0,0);
     $('#diceButton').click(function(event) {
         event.preventDefault();
         var rollResult = pointsTotal();
