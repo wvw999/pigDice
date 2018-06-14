@@ -26,3 +26,12 @@ div {
   display: none;
   font-size: 30px;
 }
+
+#rolledOne {
+  height: 25px;
+}
+
+#player1Score, #player2Score {
+  font-size: 90px;
+  margin: 40px;
+}

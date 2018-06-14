@@ -27,10 +27,10 @@ Player.prototype.pointsTotal = function () {
     }
   } else {
     this.score = 0
-    $('#gotOne').toggle(800);
-    $('#p1, #p1c').toggle(300);
-    $('#p2, #p2c').toggle(300);
-    $('#gotOne').toggle(400);
+    $('#gotOne').toggle(500);
+    $('#gotOne').delay(1400).toggle(200);
+    $('#p1, #p1c').toggle(2000);
+    $('#p2, #p2c').toggle(2000);
   }
  return this.score
 }
@@ -74,13 +74,13 @@ $('#holdButton1, #holdButton2').click(function (event) {
           player1.score = data
           player1.runningtotal = 0
           player1.score = 0
-          $('#player1Score').text(data);
+          $('.player1Score, #player1Score').text(data);
        } else if (this.id == 'holdButton2') {
           var data = player2.hold()
           player2.score = data
           player2.runningtotal = 0
           player2.score = 0
-          $('#player2Score').text(data);
+          $('.player2Score, #player2Score').text(data);
        }
       clear();;
   });
