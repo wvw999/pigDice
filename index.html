@@ -15,25 +15,19 @@
       <div class="jumbotron">
           <h1>Pig Dice</h1>
       </div>
-      <div class="playerChoice">
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label id="bippy" class="btn btn-secondary active">
-            <input type="radio" name="options" id="option1" autocomplete="off"> Player 1
-          </label>
-          <label class="btn btn-secondary">
-            <input type="radio" name="options" id="option2" autocomplete="off"> Player 2
-          </label>
-        </div>
-      </div>
-      <div >
+        <div>
         <h1 id ="diceResult"></h1>
-        <button id="diceButton" class="btn btn-primary" type="submit" name="roll">Roll</button>
-        <button id="holdButton" class="btn btn-primary" type="submit" name="hold">Hold</button>
+        <div id="p1">
+          <button id="diceButton1" class="btn btn-primary" type="submit" name="roll">Roll</button>
+          <button id="holdButton1" class="btn btn-primary" type="submit" name="hold">Hold</button>
+        </div>
+        <div id="p2">
+          <button id="diceButton2" class="btn btn-danger" type="submit" name="roll">Roll</button>
+          <button id="holdButton2" class="btn btn-danger" type="submit" name="hold">Hold</button>
+        </div>
       </div>
       <div>
         <h2 id="score"></h2>
-        <h2 id="tally"></h2>
-        <h2 id="total"></h2>
       </div>
       <div class="player1">
 

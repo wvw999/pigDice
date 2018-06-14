@@ -1,81 +1,79 @@
-function Score (dice, total, running) {
-  this.dice = dice
-  this.running = []
+function Player (name, dieroll, total, score) {
+  this.name = name
+  this.dieroll = dieroll
   this.total = total
+  this.score = score
 }
 
-function Player (name, score) {
-  this.name = name
-  this.score = score
-  this.total = total
-}
 Player.prototype.playerInfo = function () {
   return this.name + this.score + this.total;
 };
 
-Score.prototype.rollDice = function () {
-    this.dice = Math.floor((Math.random() * 6) + 1);
-    return this.dice
+Player.prototype.rollDice = function () {
+    this.dieroll = Math.floor((Math.random() * 6) + 1);
+    console.log("here is the die roll" + this.dieroll);
+    return this.dieroll
 }
 
-Score.prototype.pointsTotal = function () {
-  var points = this.dice;
+Player.prototype.pointsTotal = function () {
+  var points = this.dieroll;
   if (points !== 1) {
-    this.running.push(points)
+    this.score = this.score + points
   } else {
-    this.running = []
+    this.score = 0
   }
- return this.running
-}
-
-Score.prototype.runningTotal = function () {
-  var x = 0
-  this.running.forEach(function(add) {
-    x = x + add
-  });
-  return x
-}
-
-Score.prototype.hold = function () {
-  this.total = this.total + this.runningTotal();
-  return this.total
+ return this.score
 }
 
 function clear() {
   $('#diceResult').text('0')
-  $('#tally').text('0')
-  $('#total').text('0')
   $('#score').text('0')
+}
 
+Player.prototype.hold = function () {
+  this.total = this.total + this.score;
+  return this.total
 }
 
 $(document).ready(function() {
 
-  var diceScore= new Score (0,0,0)
-  var player1 = new Player ('Dude', 0, 0)
-  var player2 = new Player ('Dudette', 0, 0)
+  var player1 = new Player ('Dude', 0, 0, 0)
+  var player2 = new Player ('Dudette', 0, 0, 0)
 
-  $('#diceButton').click(function(event) {
+  $('#diceButton1, #diceButton2').click(function(event) {
     event.preventDefault();
-    $('#diceResult').text(diceScore.rollDice());
-    $('#score').text(diceScore.pointsTotal());
-    $('#tally').text(diceScore.runningTotal());
-
+    if (this.id == 'diceButton1') {
+      $('#diceResult').text(player1.rollDice());
+      $('#score').text(player1.pointsTotal());
+      $('#tally').text(player1.runningtotal);
+      $('#total').text(player1.total);
+    } else if (this.id == 'diceButton2') {
+      $('#diceResult').text(player2.rollDice());
+      $('#score').text(player2.pointsTotal());
+      $('#tally').text(player2.runningtotal);
+      $('#total').text(player2.total);
+    }
+    console.log(player1.dieroll , player1.total , player1.score);
   });
 
-  $('#holdButton').click(function(event){
+$('#holdButton1, #holdButton2').click(function (event) {
     event.preventDefault();
-    var data = diceScore.hold()
-    $('#total').text(data);
-      if ($('#bippy').hasClass('active')){
-      player1.score = data
-      $('#player1Score').text(data);
-      }else{
-      $('#player2Score').text(data);
-      player2.score = data
-      }
+    $('#p1').toggle();
+    $('#p2').toggle();
+       if (this.id == 'holdButton1') {
+          var data = player1.hold()
+          player1.score = data
+          player1.runningtotal = 0
+          player1.score = 0
+          $('#player1Score').text(data);
+       } else if (this.id == 'holdButton2') {
+          var data = player2.hold()
+          player2.score = data
+          player2.runningtotal = 0
+          player2.score = 0
+          $('#player2Score').text(data);
+       }
       clear();
-
 
   });
 });
