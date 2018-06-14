@@ -13,10 +13,45 @@
   <body>
     <div class="container">
       <div class="jumbotron">
-          <h1>Pig Dice</h1>
+        <div class="row">
+          <div class="col-md-4">
+            <h1>Player 1 Score:</h1>
+            <h2 id="player1Score">0</h2>
+          </div>
+          <div class="col-md-4">
+            <h1>Pig Dice</h1>
+            <img id="dice" src="img/dice.jpg" alt="">
+            <h2 id="victory"></h2>
+
+          </div>
+          <div class="col-md-4">
+            <h1>Player 2 Score:</h1>
+            <h2 id="player2Score">0</h2>
+
+          </div>
+
+        </div>
+          <div class="row" id="scoreFrame">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-2">
+              <h1 id ="diceResult">0</h1>
+              <h3>Die Roll</h3>
+            </div>
+            <div class="col-md-2">
+              <h1 id="score">0</h1>
+              <h3>Running total</h3>
+            </div>
+            <div class="col-md-4">
+            </div>
+          </div>
+          <div id="rolledOne">
+            <p id="gotOne">You rolled a one!</p>
+          </div>
       </div>
         <div>
-        <h1 id ="diceResult"></h1>
+
+
         <div id="p1">
           <button id="diceButton1" class="btn btn-primary" type="submit" name="roll">Roll</button>
           <button id="holdButton1" class="btn btn-primary" type="submit" name="hold">Hold</button>
@@ -27,19 +62,17 @@
         </div>
       </div>
       <div>
-        <h2 id="score"></h2>
-      </div>
-      <div class="player1">
-
+        <div id="p1c" class="card" style="width: 18rem;">
+         <img class="card-img-top" src="img/dude.jpg" alt="Card image cap">
+         <h5 class="card-title">PLAYER 1</h5>
         <p>DUDE your score is <span id="player1Score"></span></p>
-
+        </div>
+        <div id="p2c" class="card" style="width: 18rem;">
+          <img class="card-img-top" src="img/dudette.jpg" alt="Card image cap">
+          <h5 class="card-title">PLAYER 2</h5>
+          <p>DUDETTE your score is <span id="player2Score"></span></p>
+        </div>
       </div>
-      <div class="player2">
-        <p>DUDETTE your score is <span id="player2Score"></span></p>
-
-      </div>
-
-
     </div>
   </body>
 </html>

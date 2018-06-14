@@ -18,9 +18,19 @@ Player.prototype.rollDice = function () {
 Player.prototype.pointsTotal = function () {
   var points = this.dieroll;
   if (points !== 1) {
+    if (this.total + this.score + points >= 100) {
+      this.total = this.total + this.score + points
+      $('#victory').toggle();
+      $('#victory').text(this.name + " wins!");
+    } else {
     this.score = this.score + points
+    }
   } else {
     this.score = 0
+    $('#gotOne').toggle(800);
+    $('#p1, #p1c').toggle(300);
+    $('#p2, #p2c').toggle(300);
+    $('#gotOne').toggle(400);
   }
  return this.score
 }
@@ -53,13 +63,12 @@ $(document).ready(function() {
       $('#tally').text(player2.runningtotal);
       $('#total').text(player2.total);
     }
-    console.log(player1.dieroll , player1.total , player1.score);
   });
 
 $('#holdButton1, #holdButton2').click(function (event) {
     event.preventDefault();
-    $('#p1').toggle();
-    $('#p2').toggle();
+    $('#p1, #p1c').toggle(300);
+    $('#p2, #p2c').toggle(300);
        if (this.id == 'holdButton1') {
           var data = player1.hold()
           player1.score = data
@@ -73,7 +82,6 @@ $('#holdButton1, #holdButton2').click(function (event) {
           player2.score = 0
           $('#player2Score').text(data);
        }
-      clear();
-
+      clear();;
   });
 });

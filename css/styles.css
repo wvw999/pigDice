@@ -1,3 +1,28 @@
-#p2 {
+#p2, #p2c, #victory {
   display: none
+}
+
+#dice {
+  height: 175px;
+}
+
+div {
+  text-align: center;
+}
+
+.card {
+  margin: auto
+}
+
+.btn {
+  margin: 10px;
+}
+
+#scoreFrame {
+  margin: 10px;
+}
+
+#gotOne {
+  display: none;
+  font-size: 30px;
 }
