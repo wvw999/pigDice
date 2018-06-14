@@ -12,7 +12,6 @@ Player.prototype.playerInfo = function () {
 
 Player.prototype.rollDice = function () {
     this.dieroll = Math.floor((Math.random() * 6) + 1);
-    console.log("here is the die roll" + this.dieroll);
     return this.dieroll
 }
 
@@ -28,12 +27,26 @@ Player.prototype.pointsTotal = function () {
     }
   } else {
     this.score = 0
-    $('#gotOne').toggle(500);
-    $('#gotOne').delay(1400).toggle(200);
-    $('#p1, #p1c').toggle(2000);
-    $('#p2, #p2c').toggle(2000);
+    changePlayer();
   }
  return this.score
+}
+
+Player.prototype.scoreupdate = function () {
+$('#diceResult').text(this.rollDice());
+$('#score').text(this.pointsTotal());
+$('#tally').text(this.runningtotal);
+$('#total').text(this.total);
+$('#p1n').text(this.name);
+};
+
+
+function changePlayer () {
+  $('#gotOne').toggle(500);
+  $('#gotOne').delay(1400).toggle(200);
+  $('#p1, #p1c').toggle(2000);
+  $('#p2, #p2c').toggle(2000);
+  clear();
 }
 
 function clear() {
@@ -48,30 +61,18 @@ Player.prototype.hold = function () {
 
 $(document).ready(function() {
   if (confirm("Click OK to Play against Computer...")) {
-    console.log("if");
     var player2 = new Player ('ROBOT!', 0, 0, 0, 1);
-    console.log(player2.name);
   } else {
-    console.log("else");
     var player2 = new Player ('Jesus', 0, 0, 0, 0);
-    console.log(player2.name);
   }
   var player1 = new Player ('Dude', 0, 0, 0, 0);
 
   $('#diceButton1, #diceButton2').click(function(event) {
     event.preventDefault();
     if (this.id == 'diceButton1') {
-      $('#diceResult').text(player1.rollDice());
-      $('#score').text(player1.pointsTotal());
-      $('#tally').text(player1.runningtotal);
-      $('#total').text(player1.total);
-      $('#p1n').text(player1.name);
+      player1.scoreupdate();
     } else if (this.id == 'diceButton2') {
-      $('#diceResult').text(player2.rollDice());
-      $('#score').text(player2.pointsTotal());
-      $('#tally').text(player2.runningtotal);
-      $('#total').text(player2.total);
-      $('#p2n').text(player2.name);
+      player2.scoreupdate();
     }
   });
 
