@@ -1,8 +1,9 @@
-function Player (name, dieroll, total, score) {
-  this.name = name
-  this.dieroll = dieroll
-  this.total = total
-  this.score = score
+function Player (name, dieroll, total, score, robot) {
+  this.name = name;
+  this.dieroll = dieroll;
+  this.total = total;
+  this.score = score;
+  this.robot = robot;
 }
 
 Player.prototype.playerInfo = function () {
@@ -46,9 +47,16 @@ Player.prototype.hold = function () {
 }
 
 $(document).ready(function() {
-
-  var player1 = new Player ('Dude', 0, 0, 0)
-  var player2 = new Player ('Dudette', 0, 0, 0)
+  if (confirm("Click OK to Play against Computer...")) {
+    console.log("if");
+    var player2 = new Player ('ROBOT!', 0, 0, 0, 1);
+    console.log(player2.name);
+  } else {
+    console.log("else");
+    var player2 = new Player ('Jesus', 0, 0, 0, 0);
+    console.log(player2.name);
+  }
+  var player1 = new Player ('Dude', 0, 0, 0, 0);
 
   $('#diceButton1, #diceButton2').click(function(event) {
     event.preventDefault();
@@ -57,11 +65,13 @@ $(document).ready(function() {
       $('#score').text(player1.pointsTotal());
       $('#tally').text(player1.runningtotal);
       $('#total').text(player1.total);
+      $('#p1n').text(player1.name);
     } else if (this.id == 'diceButton2') {
       $('#diceResult').text(player2.rollDice());
       $('#score').text(player2.pointsTotal());
       $('#tally').text(player2.runningtotal);
       $('#total').text(player2.total);
+      $('#p2n').text(player2.name);
     }
   });
 
@@ -74,13 +84,13 @@ $('#holdButton1, #holdButton2').click(function (event) {
           player1.score = data
           player1.runningtotal = 0
           player1.score = 0
-          $('.player1Score, #player1Score').text(data);
+          $('#player1Score').text(data);
        } else if (this.id == 'holdButton2') {
           var data = player2.hold()
           player2.score = data
           player2.runningtotal = 0
           player2.score = 0
-          $('.player2Score, #player2Score').text(data);
+          $('#player2Score').text(data);
        }
       clear();;
   });
