@@ -5,13 +5,26 @@ function Player (name, robot) {
   this.gotone = 0;
   this.tally = 0;
   this.total = 0;
+  this.hadaturn = 0;
   this.robot = robot;
   this.victory = 0;
 }
 
 Player.prototype.rollDice = function () {
-  this.dieroll = Math.floor((Math.random() * 6) + 1);
-  this.tally = this.tally + this.dieroll;
+  val rolling = this.dieroll = Math.floor((Math.random() * 6) + 1);
+  if(rolling > 1) {
+    this.tally = this.tally + this.dieroll;
+    console.log(this);
+    this.turnreset();
+  } else
+    this.turnreset();
+  }
+}
+
+Player.prototype.turnreset = function (value) {
+    this.tally = 0
+    this.dieroll = 0
+    this.hadaturn = 1
 }
 
 Player.prototype.hold = function () {
@@ -20,39 +33,46 @@ Player.prototype.hold = function () {
   this.tally = 0;
   $('#die').text(this.dieroll);
   $('#running').text(this.tally);
+  this.clickedhold = 1;
+  console.log(this);
 }
 
-$(document).ready(function() {
-    var player1 = new Player ('Dude');
-    var player2 = new Player ('Jesus');
-    var player3 = new Player ('ROBOT!', 1);
-    if (confirm("Click OK to Play against Computer...")) {
-    var playerArray = [player1, player3];
+function playmanager (mode,game) {
+  if (mode = 1) {
+    if(game[0].hadaturn == 0) {
+     game[0].rollDice();
+    } else {
+     game[1].rollDice();
+    }
   } else {
-    var playerArray = [player1, player2];
+    if(game[0].hadaturn == 0) {
+     game[0].hold();
+    } else {
+     game[1].hold();
+    }
   }
 
-  for(y = 1; ((player1.victory == 0) && (player2.victory == 0) && (player3.victory == 0)); y++) {
-    console.log("got parent for loop");
-    playerArray.forEach(function(player) {
-      console.log("got to array loop");
-      $('#die').text(0);
-      $('#running').text(0);
-      for(x = 1; ((player.gotone == 0) && (player.clickedhold == 0)); x++) {
-         $('#diceButton').click(function(event) {
-          event.preventDefault();
-           console.log("got to dice click event");
-            player.rollDice();
-         });
-         $('#holdButton').click(function(event) {
-          event.preventDefault();
-           console.log("got to hold click event");
-           player.hold();
-         });
-      }
-      this.gotone = 0;
-      this.clickedhold = 0;
-    });
+}
+
+
+$(document).ready(function() {
+  var player1 = new Player ('Dude');
+  var player2 = new Player ('Jesus');
+  var player3 = new Player ('ROBOT!', 1);
+  if (confirm("Click OK to Play against Computer...")) {
+    var game = [player1, player3];
+  } else {
+    var game = [player1, player2];
   }
 
+    $('#diceButton').click(function(event) {
+    event.preventDefault();
+    console.log("got to dice click event ");
+    playmanager(1,game);
+  });
+  $('#holdButton').click(function(event) {
+    event.preventDefault();
+    console.log("got to hold click event ");
+    playmanager(2,game);
+  });
 });
