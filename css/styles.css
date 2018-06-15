@@ -1,4 +1,4 @@
-#p2, #p2c, #victory {
+#victory {
   display: none
 }
 
@@ -31,7 +31,19 @@ div {
   height: 25px;
 }
 
-#player1Score, #player2Score {
+#player1Score, #player2Score, #robotScore {
   font-size: 90px;
   margin: 40px;
+}
+
+#robot {
+   display: none;
+}
+
+#robotScore {
+  display: none;
+}
+
+#player2 {
+  display: none;
 }

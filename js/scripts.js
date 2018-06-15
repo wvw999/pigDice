@@ -1,98 +1,58 @@
-function Player (name, dieroll, total, score, robot) {
+function Player (name, robot) {
   this.name = name;
-  this.dieroll = dieroll;
-  this.total = total;
-  this.score = score;
+  this.dieroll = 0;
+  this.clickedhold = 0;
+  this.gotone = 0;
+  this.tally = 0;
+  this.total = 0;
   this.robot = robot;
+  this.victory = 0;
 }
-
-Player.prototype.playerInfo = function () {
-  return this.name + this.score + this.total;
-};
 
 Player.prototype.rollDice = function () {
-    this.dieroll = Math.floor((Math.random() * 6) + 1);
-    return this.dieroll
-}
-
-Player.prototype.pointsTotal = function () {
-  var points = this.dieroll;
-  if (points !== 1) {
-    if (this.total + this.score + points >= 100) {
-      this.total = this.total + this.score + points
-      $('#victory').toggle();
-      $('#victory').text(this.name + " wins!");
-    } else {
-    this.score = this.score + points
-    }
-  } else {
-    this.score = 0
-    changePlayer();
-  }
- return this.score
-}
-
-Player.prototype.scoreupdate = function () {
-$('#diceResult').text(this.rollDice());
-$('#score').text(this.pointsTotal());
-$('#tally').text(this.runningtotal);
-$('#total').text(this.total);
-$('#p1n').text(this.name);
-};
-
-
-function changePlayer () {
-  $('#gotOne').toggle(500);
-  $('#gotOne').delay(1400).toggle(200);
-  $('#p1, #p1c').toggle(2000);
-  $('#p2, #p2c').toggle(2000);
-  clear();
-}
-
-function clear() {
-  $('#diceResult').text('0')
-  $('#score').text('0')
+  this.dieroll = Math.floor((Math.random() * 6) + 1);
+  this.tally = this.tally + this.dieroll;
 }
 
 Player.prototype.hold = function () {
-  this.total = this.total + this.score;
-  return this.total
+  this.total = this.total + this.tally;
+  this.dieroll = 0;
+  this.tally = 0;
+  $('#die').text(this.dieroll);
+  $('#running').text(this.tally);
 }
 
 $(document).ready(function() {
-  if (confirm("Click OK to Play against Computer...")) {
-    var player2 = new Player ('ROBOT!', 0, 0, 0, 1);
+    var player1 = new Player ('Dude');
+    var player2 = new Player ('Jesus');
+    var player3 = new Player ('ROBOT!', 1);
+    if (confirm("Click OK to Play against Computer...")) {
+    var playerArray = [player1, player3];
   } else {
-    var player2 = new Player ('Jesus', 0, 0, 0, 0);
+    var playerArray = [player1, player2];
   }
-  var player1 = new Player ('Dude', 0, 0, 0, 0);
 
-  $('#diceButton1, #diceButton2').click(function(event) {
-    event.preventDefault();
-    if (this.id == 'diceButton1') {
-      player1.scoreupdate();
-    } else if (this.id == 'diceButton2') {
-      player2.scoreupdate();
-    }
-  });
+  for(y = 1; ((player1.victory == 0) && (player2.victory == 0) && (player3.victory == 0)); y++) {
+    console.log("got parent for loop");
+    playerArray.forEach(function(player) {
+      console.log("got to array loop");
+      $('#die').text(0);
+      $('#running').text(0);
+      for(x = 1; ((player.gotone == 0) && (player.clickedhold == 0)); x++) {
+         $('#diceButton').click(function(event) {
+          event.preventDefault();
+           console.log("got to dice click event");
+            player.rollDice();
+         });
+         $('#holdButton').click(function(event) {
+          event.preventDefault();
+           console.log("got to hold click event");
+           player.hold();
+         });
+      }
+      this.gotone = 0;
+      this.clickedhold = 0;
+    });
+  }
 
-$('#holdButton1, #holdButton2').click(function (event) {
-    event.preventDefault();
-    $('#p1, #p1c').toggle(300);
-    $('#p2, #p2c').toggle(300);
-       if (this.id == 'holdButton1') {
-          var data = player1.hold()
-          player1.score = data
-          player1.runningtotal = 0
-          player1.score = 0
-          $('#player1Score').text(data);
-       } else if (this.id == 'holdButton2') {
-          var data = player2.hold()
-          player2.score = data
-          player2.runningtotal = 0
-          player2.score = 0
-          $('#player2Score').text(data);
-       }
-      clear();;
-  });
 });

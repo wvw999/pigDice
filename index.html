@@ -15,7 +15,8 @@
       <div class="jumbotron">
         <div class="row">
           <div class="col-md-4">
-            <h1>Player 1 Score:</h1>
+            <h1>Player 1</h1>
+            <h2>Score:</h2>
             <h2 id="player1Score">0</h2>
           </div>
           <div class="col-md-4">
@@ -25,21 +26,24 @@
 
           </div>
           <div class="col-md-4">
-            <h1>Player 2 Score:</h1>
+            <h1>Player 2</h1>
+            <h2>Score:</h2>
             <h2 id="player2Score">0</h2>
+            <h2 id="robotScore">0</h2>
 
           </div>
 
         </div>
+        <!-- this section of code is where the score is stored -->
           <div class="row" id="scoreFrame">
             <div class="col-md-4">
             </div>
             <div class="col-md-2">
-              <h1 id ="diceResult">0</h1>
+              <h1 is="die">0</h1>
               <h3>Die Roll</h3>
             </div>
             <div class="col-md-2">
-              <h1 id="score">0</h1>
+              <h1 id="running">0</h1>
               <h3>Running total</h3>
             </div>
             <div class="col-md-4">
@@ -50,25 +54,24 @@
           </div>
       </div>
         <div>
-
-
-        <div id="p1">
-          <button id="diceButton1" class="btn btn-primary" type="submit" name="roll">Roll</button>
-          <button id="holdButton1" class="btn btn-primary" type="submit" name="hold">Hold</button>
-        </div>
-        <div id="p2">
-          <button id="diceButton2" class="btn btn-danger" type="submit" name="roll">Roll</button>
-          <button id="holdButton2" class="btn btn-danger" type="submit" name="hold">Hold</button>
+        <div>
+          <button id="diceButton" class="btn btn-primary" type="submit" name="roll">Roll</button>
+          <button id="holdButton" class="btn btn-primary" type="submit" name="hold">Hold</button>
         </div>
       </div>
       <div>
-        <div id="p1c" class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem;">
          <img class="card-img-top" src="img/dude.jpg" alt="Card image cap">
          <h5 class="card-title">PLAYER 1:</h5>
-        <p id="p1n">click roll to start!</p>
+        <p>click roll to start!</p>
         </div>
-        <div id="p2c" class="card" style="width: 18rem;">
+        <div id="player2" class="card" style="width: 18rem;">
           <img class="card-img-top" src="img/dudette.jpg" alt="Card image cap">
+          <h5 class="card-title">PLAYER 2</h5>
+          <p id="p2n">click roll to start!</p>
+        </div>
+        <div id="robot" class="card" style="width: 18rem;">
+          <img class="card-img-top" src="img/robot.jpg" alt="Card image cap">
           <h5 class="card-title">PLAYER 2</h5>
           <p id="p2n">click roll to start!</p>
         </div>
